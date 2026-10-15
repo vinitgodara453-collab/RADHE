@@ -25,17 +25,24 @@ except ImportError:
     print("[-] Please run: pip install telethon colorama")
     sys.exit(1)
 
-# BotFather Configuration
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
-API_ID = 2055694
-API_HASH = "a10ddb589cd1cfa0b132546373337b83"
-ADMIN_ID = 589219481  # Replace with your Telegram User ID
+# BotFather & Telegram Configuration
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "").strip()
+API_ID = int(os.environ.get("API_ID", "2055694"))
+API_HASH = os.environ.get("API_HASH", "a10ddb589cd1cfa0b132546373337b83").strip()
+ADMIN_ID = int(os.environ.get("ADMIN_ID", "589219481"))
 
 # Pricing & Payment Config
-UPI_ID = "radhebusiness@upi"
-PRICE_PER_1K_SCRAPE = 100.0  # ₹100 per 1,000 members
-PRICE_PER_1K_ADD = 250.0     # ₹250 per 1,000 members
-MIN_DEPOSIT = 50.0
+UPI_ID = os.environ.get("UPI_ID", "radhebusiness@upi").strip()
+PRICE_PER_1K_SCRAPE = float(os.environ.get("PRICE_PER_1K_SCRAPE", "100.0"))
+PRICE_PER_1K_ADD = float(os.environ.get("PRICE_PER_1K_ADD", "250.0"))
+MIN_DEPOSIT = float(os.environ.get("MIN_DEPOSIT", "50.0"))
+
+if not BOT_TOKEN or "YOUR_BOT_TOKEN" in BOT_TOKEN:
+    print(f"{Fore.YELLOW}[!] BOT_TOKEN environment variable not set.{Style.RESET_ALL}")
+    try:
+        BOT_TOKEN = input("Enter your Telegram Bot Token from @BotFather: ").strip()
+    except Exception:
+        pass
 
 # Database Initialization
 DB_FILE = "business_data.db"
